@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import CreateTrustForm from '../components/CreateTrustForm';
 import { Button, Layout } from 'antd';
+import CreateTrustForm from '../components/CreateTrustForm';
 
 const { Header, Footer, Sider, Content } = Layout;
 
