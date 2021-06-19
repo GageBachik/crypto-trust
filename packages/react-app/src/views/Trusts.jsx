@@ -3,15 +3,17 @@ import React, { useState } from 'react';
 import { Button, Layout } from 'antd';
 import CreateTrustForm from '../components/CreateTrustForm';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 
 const Trusts = () => {
-  const [showCreateTrustForm, setShowCreateTrustForm] = useState(false);
+  const [showCreateTrustForm, setShowCreateTrustForm] = useState(true);
 
   return (
     <Layout style={{ height: '100%' }}>
       <Content style={{ marginTop: 32 }}>
-        <Button type="primary">Create Trust</Button>
+        <Button type="primary" onClick={() => setShowCreateTrustForm(true)}>
+          Create Trust
+        </Button>
 
         {showCreateTrustForm && <CreateTrustForm />}
       </Content>
