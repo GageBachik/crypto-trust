@@ -1,5 +1,5 @@
-import { PageHeader } from "antd";
-import React from "react";
+import { PageHeader } from 'antd';
+import React from 'react';
 
 // displays a page header
 
@@ -9,7 +9,7 @@ export default function Header() {
       <PageHeader
         title="🏗 scaffold-eth"
         subTitle="forkable Ethereum dev stack focused on fast product iteration"
-        style={{ cursor: "pointer" }}
+        style={{ cursor: 'pointer' }}
       />
     </a>
   );

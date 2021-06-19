@@ -1,5 +1,5 @@
-import { getAddress, isAddress } from "@ethersproject/address";
-import { useEffect, useState } from "react";
+import { getAddress, isAddress } from '@ethersproject/address';
+import { useEffect, useState } from 'react';
 
 // resolved if(name){} to not save "" into cache
 
@@ -43,7 +43,7 @@ const useLookupAddress = (provider, address) => {
   // const [ensCache, setEnsCache] = useLocalStorage('ensCache_'+address); Writing directly due to sync issues
 
   useEffect(() => {
-    let cache = window.localStorage.getItem("ensCache_" + address);
+    let cache = window.localStorage.getItem('ensCache_' + address);
     cache = cache && JSON.parse(cache);
 
     if (cache && cache.timestamp > Date.now()) {
@@ -53,7 +53,7 @@ const useLookupAddress = (provider, address) => {
         if (name) {
           setEnsName(name);
           window.localStorage.setItem(
-            "ensCache_" + address,
+            'ensCache_' + address,
             JSON.stringify({
               timestamp: Date.now() + 360000,
               name,

@@ -1,7 +1,7 @@
-import { RetweetOutlined, SettingOutlined } from "@ant-design/icons";
-import { formatUnits, parseUnits } from "@ethersproject/units";
-import { ChainId, Fetcher, Percent, Token, TokenAmount, Trade, WETH } from "@uniswap/sdk";
-import { abi as IUniswapV2Router02ABI } from "@uniswap/v2-periphery/build/IUniswapV2Router02.json";
+import { RetweetOutlined, SettingOutlined } from '@ant-design/icons';
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { ChainId, Fetcher, Percent, Token, TokenAmount, Trade, WETH } from '@uniswap/sdk';
+import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json';
 import {
   Button,
   Card,
@@ -16,23 +16,23 @@ import {
   Space,
   Tooltip,
   Typography,
-} from "antd";
-import { useBlockNumber, usePoller } from "eth-hooks";
-import { ethers } from "ethers";
-import React, { useEffect, useState } from "react";
-import { useDebounce } from "../hooks";
+} from 'antd';
+import { useBlockNumber, usePoller } from 'eth-hooks';
+import { ethers } from 'ethers';
+import React, { useEffect, useState } from 'react';
+import { useDebounce } from '../hooks';
 
 const { Option } = Select;
 const { Text } = Typography;
 
-export const ROUTER_ADDRESS = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
+export const ROUTER_ADDRESS = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
 
-export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 const erc20Abi = [
-  "function balanceOf(address owner) view returns (uint256)",
-  "function approve(address _spender, uint256 _value) public returns (bool success)",
-  "function allowance(address _owner, address _spender) public view returns (uint256 remaining)",
+  'function balanceOf(address owner) view returns (uint256)',
+  'function approve(address _spender, uint256 _value) public returns (bool success)',
+  'function allowance(address _owner, address _spender) public view returns (uint256 remaining)',
 ];
 
 const makeCall = async (callName, contract, args, metadata = {}) => {
@@ -45,12 +45,12 @@ const makeCall = async (callName, contract, args, metadata = {}) => {
     }
     return result;
   }
-  console.log("no call of that name!");
+  console.log('no call of that name!');
 };
 
-const defaultToken = "ETH";
-const defaultTokenOut = "DAI";
-const defaultSlippage = "0.5";
+const defaultToken = 'ETH';
+const defaultTokenOut = 'DAI';
+const defaultSlippage = '0.5';
 const defaultTimeLimit = 60 * 10;
 
 const tokenListToObject = array =>
@@ -72,7 +72,7 @@ function Swap({ selectedProvider, tokenListURI }) {
   const [balanceIn, setBalanceIn] = useState();
   const [balanceOut, setBalanceOut] = useState();
   const [slippageTolerance, setSlippageTolerance] = useState(
-    new Percent(Math.round(defaultSlippage * 100).toString(), "10000"),
+    new Percent(Math.round(defaultSlippage * 100).toString(), '10000'),
   );
   const [timeLimit, setTimeLimit] = useState(defaultTimeLimit);
   const [swapping, setSwapping] = useState(false);
@@ -91,12 +91,12 @@ function Swap({ selectedProvider, tokenListURI }) {
   const signer = selectedProvider.getSigner();
   const routerContract = new ethers.Contract(ROUTER_ADDRESS, IUniswapV2Router02ABI, signer);
 
-  const _tokenListUri = tokenListURI || "https://gateway.ipfs.io/ipns/tokens.uniswap.org";
+  const _tokenListUri = tokenListURI || 'https://gateway.ipfs.io/ipns/tokens.uniswap.org';
 
   const debouncedAmountIn = useDebounce(amountIn, 500);
   const debouncedAmountOut = useDebounce(amountOut, 500);
 
-  const activeChainId = process.env.REACT_APP_NETWORK === "kovan" ? ChainId.KOVAN : ChainId.MAINNET;
+  const activeChainId = process.env.REACT_APP_NETWORK === 'kovan' ? ChainId.KOVAN : ChainId.MAINNET;
 
   useEffect(() => {
     const getTokenList = async () => {
@@ -108,10 +108,10 @@ function Swap({ selectedProvider, tokenListURI }) {
           return t.chainId === activeChainId;
         });
         const ethToken = WETH[activeChainId];
-        ethToken.name = "Ethereum";
-        ethToken.symbol = "ETH";
+        ethToken.name = 'Ethereum';
+        ethToken.symbol = 'ETH';
         ethToken.logoURI =
-          "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png";
+          'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png';
         const _tokenList = [ethToken, ...filteredTokens];
         setTokenList(_tokenList);
         const _tokens = tokenListToObject(_tokenList);
@@ -129,7 +129,7 @@ function Swap({ selectedProvider, tokenListURI }) {
 
       const baseTokens = tokenList
         .filter(function (t) {
-          return ["DAI", "USDC", "USDT", "COMP", "ETH", "MKR", "LINK", tokenIn, tokenOut].includes(t.symbol);
+          return ['DAI', 'USDC', 'USDT', 'COMP', 'ETH', 'MKR', 'LINK', tokenIn, tokenOut].includes(t.symbol);
         })
         .map(el => {
           return new Token(el.chainId, el.address, el.decimals, el.symbol, el.name);
@@ -146,7 +146,7 @@ function Swap({ selectedProvider, tokenListURI }) {
 
       let bestTrade;
 
-      if (exact === "in") {
+      if (exact === 'in') {
         setAmountInMax();
         bestTrade = Trade.bestTradeExactIn(
           listOfPairs.filter(item => item),
@@ -159,7 +159,7 @@ function Swap({ selectedProvider, tokenListURI }) {
         } else {
           setAmountOut();
         }
-      } else if (exact === "out") {
+      } else if (exact === 'out') {
         setAmountOutMin();
         bestTrade = Trade.bestTradeExactOut(
           listOfPairs.filter(item => item),
@@ -186,9 +186,9 @@ function Swap({ selectedProvider, tokenListURI }) {
 
   useEffect(() => {
     if (trades && trades[0]) {
-      if (exact === "in") {
+      if (exact === 'in') {
         setAmountOutMin(trades[0].minimumAmountOut(slippageTolerance));
-      } else if (exact === "out") {
+      } else if (exact === 'out') {
         setAmountInMax(trades[0].maximumAmountIn(slippageTolerance));
       }
     }
@@ -196,10 +196,10 @@ function Swap({ selectedProvider, tokenListURI }) {
 
   const getBalance = async (_token, _account, _contract) => {
     let newBalance;
-    if (_token === "ETH") {
+    if (_token === 'ETH') {
       newBalance = await selectedProvider.getBalance(_account);
     } else {
-      newBalance = await makeCall("balanceOf", _contract, [_account]);
+      newBalance = await makeCall('balanceOf', _contract, [_account]);
     }
     return newBalance;
   };
@@ -215,10 +215,10 @@ function Swap({ selectedProvider, tokenListURI }) {
 
         let allowance;
 
-        if (tokenIn === "ETH") {
+        if (tokenIn === 'ETH') {
           setRouterAllowance();
         } else {
-          allowance = await makeCall("allowance", tempContractIn, [accountList[0], ROUTER_ADDRESS]);
+          allowance = await makeCall('allowance', tempContractIn, [accountList[0], ROUTER_ADDRESS]);
           setRouterAllowance(allowance);
         }
       }
@@ -245,13 +245,13 @@ function Swap({ selectedProvider, tokenListURI }) {
     setApproving(true);
     try {
       const tempContract = new ethers.Contract(tokens[tokenIn].address, erc20Abi, signer);
-      const result = await makeCall("approve", tempContract, [ROUTER_ADDRESS, newAllowance]);
+      const result = await makeCall('approve', tempContract, [ROUTER_ADDRESS, newAllowance]);
       console.log(result);
       setApproving(false);
       return true;
     } catch (e) {
       notification.open({
-        message: "Approval unsuccessful",
+        message: 'Approval unsuccessful',
         description: `Error: ${e.message}`,
       });
     }
@@ -259,14 +259,14 @@ function Swap({ selectedProvider, tokenListURI }) {
 
   const approveRouter = async () => {
     const approvalAmount =
-      exact === "in"
+      exact === 'in'
         ? ethers.utils.hexlify(parseUnits(amountIn.toString(), tokens[tokenIn].decimals))
         : amountInMax.raw.toString();
     console.log(approvalAmount);
     const approval = updateRouterAllowance(approvalAmount);
     if (approval) {
       notification.open({
-        message: "Token transfer approved",
+        message: 'Token transfer approved',
         description: `You can now swap up to ${amountIn} ${tokenIn}`,
       });
     }
@@ -278,7 +278,7 @@ function Swap({ selectedProvider, tokenListURI }) {
     const removal = updateRouterAllowance(approvalAmount);
     if (removal) {
       notification.open({
-        message: "Token approval removed",
+        message: 'Token approval removed',
         description: `The router is no longer approved for ${tokenIn}`,
       });
     }
@@ -299,26 +299,26 @@ function Swap({ selectedProvider, tokenListURI }) {
       const accountList = await selectedProvider.listAccounts();
       const address = accountList[0];
 
-      if (exact === "in") {
+      if (exact === 'in') {
         const _amountIn = ethers.utils.hexlify(parseUnits(amountIn.toString(), tokens[tokenIn].decimals));
         const _amountOutMin = ethers.utils.hexlify(ethers.BigNumber.from(amountOutMin.raw.toString()));
-        if (tokenIn === "ETH") {
-          call = "swapExactETHForTokens";
+        if (tokenIn === 'ETH') {
+          call = 'swapExactETHForTokens';
           args = [_amountOutMin, path, address, deadline];
           metadata.value = _amountIn;
         } else {
-          call = tokenOut === "ETH" ? "swapExactTokensForETH" : "swapExactTokensForTokens";
+          call = tokenOut === 'ETH' ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
           args = [_amountIn, _amountOutMin, path, address, deadline];
         }
-      } else if (exact === "out") {
+      } else if (exact === 'out') {
         const _amountOut = ethers.utils.hexlify(parseUnits(amountOut.toString(), tokens[tokenOut].decimals));
         const _amountInMax = ethers.utils.hexlify(ethers.BigNumber.from(amountInMax.raw.toString()));
-        if (tokenIn === "ETH") {
-          call = "swapETHForExactTokens";
+        if (tokenIn === 'ETH') {
+          call = 'swapETHForExactTokens';
           args = [_amountOut, path, address, deadline];
           metadata.value = _amountInMax;
         } else {
-          call = tokenOut === "ETH" ? "swapTokensForExactETH" : "swapTokensForExactTokens";
+          call = tokenOut === 'ETH' ? 'swapTokensForExactETH' : 'swapTokensForExactTokens';
           args = [_amountOut, _amountInMax, path, address, deadline];
         }
       }
@@ -326,7 +326,7 @@ function Swap({ selectedProvider, tokenListURI }) {
       const result = await makeCall(call, routerContract, args, metadata);
       console.log(result);
       notification.open({
-        message: "Swap complete 🦄",
+        message: 'Swap complete 🦄',
         description: (
           <>
             <Text>{`Swapped ${tokenIn} for ${tokenOut}, transaction: `}</Text>
@@ -339,7 +339,7 @@ function Swap({ selectedProvider, tokenListURI }) {
       console.log(e);
       setSwapping(false);
       notification.open({
-        message: "Swap unsuccessful",
+        message: 'Swap unsuccessful',
         description: `Error: ${e.message}`,
       });
     }
@@ -361,7 +361,7 @@ function Swap({ selectedProvider, tokenListURI }) {
   const insufficientBalance = balanceIn
     ? parseFloat(formatUnits(balanceIn, tokens[tokenIn].decimals)) < amountIn
     : null;
-  const inputIsToken = tokenIn !== "ETH";
+  const inputIsToken = tokenIn !== 'ETH';
   const insufficientAllowance = !inputIsToken
     ? false
     : routerAllowance
@@ -389,7 +389,7 @@ function Swap({ selectedProvider, tokenListURI }) {
 
   const cleanIpfsURI = uri => {
     try {
-      return uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+      return uri.replace('ipfs://', 'https://ipfs.io/ipfs/');
     } catch (e) {
       console.log(e, uri);
       return uri;
@@ -443,8 +443,8 @@ function Swap({ selectedProvider, tokenListURI }) {
       <Divider />
       <Row>{priceWidget}</Row>
       <Row>
-        {trades && ((amountOutMin && exact === "in") || (amountInMax && exact === "out"))
-          ? exact === "in"
+        {trades && ((amountOutMin && exact === 'in') || (amountInMax && exact === 'out'))
+          ? exact === 'in'
             ? `Output is estimated. You will receive at least ${amountOutMin.toSignificant(
                 6,
               )} ${tokenOut} or the transaction will revert.`
@@ -480,7 +480,7 @@ function Swap({ selectedProvider, tokenListURI }) {
           <Card
             size="small"
             type="inner"
-            title={`From${exact === "out" && tokenIn && tokenOut ? " (estimate)" : ""}`}
+            title={`From${exact === 'out' && tokenIn && tokenOut ? ' (estimate)' : ''}`}
             extra={
               <>
                 <img src={logoIn} alt={tokenIn} width="30" />
@@ -491,17 +491,17 @@ function Swap({ selectedProvider, tokenListURI }) {
                     setAmountIn(formatUnits(balanceIn, tokens[tokenIn].decimals));
                     setAmountOutMin();
                     setAmountInMax();
-                    setExact("in");
+                    setExact('in');
                   }}
                 >
                   {formattedBalanceIn}
                 </Button>
               </>
             }
-            style={{ width: 400, textAlign: "left" }}
+            style={{ width: 400, textAlign: 'left' }}
           >
             <InputNumber
-              style={{ width: "160px" }}
+              style={{ width: '160px' }}
               min={0}
               size="large"
               value={amountIn}
@@ -509,20 +509,20 @@ function Swap({ selectedProvider, tokenListURI }) {
                 setAmountOut();
                 setTrades();
                 setAmountIn(e);
-                setExact("in");
+                setExact('in');
               }}
             />
             <Select
               showSearch
               value={tokenIn}
-              style={{ width: "120px" }}
+              style={{ width: '120px' }}
               size="large"
               bordered={false}
               defaultValue={defaultToken}
               onChange={value => {
                 console.log(value);
                 if (value === tokenOut) {
-                  console.log("switch!", tokenIn);
+                  console.log('switch!', tokenIn);
                   setTokenOut(tokenIn);
                   setAmountOut(amountIn);
                   setBalanceOut(balanceIn);
@@ -530,7 +530,7 @@ function Swap({ selectedProvider, tokenListURI }) {
                 setTokenIn(value);
                 setTrades();
                 setAmountIn();
-                setExact("out");
+                setExact('out');
                 setBalanceIn();
               }}
               filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
@@ -545,7 +545,7 @@ function Swap({ selectedProvider, tokenListURI }) {
           </Card>
         </Row>
         <Row justify="center" align="middle">
-          <Tooltip title={route.join("->")}>
+          <Tooltip title={route.join('->')}>
             <span>↓</span>
           </Tooltip>
         </Row>
@@ -553,17 +553,17 @@ function Swap({ selectedProvider, tokenListURI }) {
           <Card
             size="small"
             type="inner"
-            title={`To${exact === "in" && tokenIn && tokenOut ? " (estimate)" : ""}`}
+            title={`To${exact === 'in' && tokenIn && tokenOut ? ' (estimate)' : ''}`}
             extra={
               <>
                 <img src={logoOut} width="30" alt={tokenOut} />
                 <Button type="text">{formattedBalanceOut}</Button>
               </>
             }
-            style={{ width: 400, textAlign: "left" }}
+            style={{ width: 400, textAlign: 'left' }}
           >
             <InputNumber
-              style={{ width: "160px" }}
+              style={{ width: '160px' }}
               size="large"
               min={0}
               value={amountOut}
@@ -571,25 +571,25 @@ function Swap({ selectedProvider, tokenListURI }) {
                 setAmountOut(e);
                 setAmountIn();
                 setTrades();
-                setExact("out");
+                setExact('out');
               }}
             />
             <Select
               showSearch
               value={tokenOut}
-              style={{ width: "120px" }}
+              style={{ width: '120px' }}
               size="large"
               bordered={false}
               onChange={value => {
                 console.log(value, tokenIn, tokenOut);
                 if (value === tokenIn) {
-                  console.log("switch!", tokenOut);
+                  console.log('switch!', tokenOut);
                   setTokenIn(tokenOut);
                   setAmountIn(amountOut);
                   setBalanceIn(balanceOut);
                 }
                 setTokenOut(value);
-                setExact("in");
+                setExact('in');
                 setAmountOut();
                 setTrades();
                 setBalanceOut();
@@ -612,7 +612,7 @@ function Swap({ selectedProvider, tokenListURI }) {
           <Space>
             {inputIsToken ? (
               <Button size="large" loading={approving} disabled={!insufficientAllowance} onClick={approveRouter}>
-                {!insufficientAllowance && amountIn && amountOut ? "Approved" : "Approve"}
+                {!insufficientAllowance && amountIn && amountOut ? 'Approved' : 'Approve'}
               </Button>
             ) : null}
             <Button
@@ -621,7 +621,7 @@ function Swap({ selectedProvider, tokenListURI }) {
               disabled={insufficientAllowance || insufficientBalance || !amountIn || !amountOut}
               onClick={showSwapModal}
             >
-              {insufficientBalance ? "Insufficient balance" : "Swap!"}
+              {insufficientBalance ? 'Insufficient balance' : 'Swap!'}
             </Button>
             {swapModal}
           </Space>
@@ -634,7 +634,7 @@ function Swap({ selectedProvider, tokenListURI }) {
         }}
         width={500}
       >
-        <Descriptions title="Details" column={1} style={{ textAlign: "left" }}>
+        <Descriptions title="Details" column={1} style={{ textAlign: 'left' }}>
           <Descriptions.Item label="blockNumber">{blockNumber}</Descriptions.Item>
           <Descriptions.Item label="routerAllowance">
             <Space>
@@ -642,7 +642,7 @@ function Swap({ selectedProvider, tokenListURI }) {
               {routerAllowance > 0 ? <Button onClick={removeRouterAllowance}>Remove Allowance</Button> : null}
             </Space>
           </Descriptions.Item>
-          <Descriptions.Item label="route">{route.join("->")}</Descriptions.Item>
+          <Descriptions.Item label="route">{route.join('->')}</Descriptions.Item>
           <Descriptions.Item label="exact">{exact}</Descriptions.Item>
           <Descriptions.Item label="bestPrice">
             {trades ? (trades.length > 0 ? trades[0].executionPrice.toSignificant(6) : null) : null}
@@ -660,11 +660,11 @@ function Swap({ selectedProvider, tokenListURI }) {
               max={100}
               precision={2}
               formatter={value => `${value}%`}
-              parser={value => value.replace("%", "")}
+              parser={value => value.replace('%', '')}
               onChange={value => {
                 console.log(value);
 
-                const slippagePercent = new Percent(Math.round(value * 100).toString(), "10000");
+                const slippagePercent = new Percent(Math.round(value * 100).toString(), '10000');
                 setSlippageTolerance(slippagePercent);
               }}
             />

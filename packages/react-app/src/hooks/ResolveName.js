@@ -1,5 +1,5 @@
-import { AddressZero } from "@ethersproject/constants";
-import { useEffect, useState } from "react";
+import { AddressZero } from '@ethersproject/constants';
+import { useEffect, useState } from 'react';
 
 /*
   ~ What it does? ~

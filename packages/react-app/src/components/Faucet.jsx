@@ -1,11 +1,11 @@
-import { SendOutlined } from "@ant-design/icons";
-import { parseEther } from "@ethersproject/units";
-import { Button, Input, Tooltip } from "antd";
-import { useLookupAddress } from "eth-hooks";
-import React, { useCallback, useState } from "react";
-import Blockies from "react-blockies";
-import { Transactor } from "../helpers";
-import Wallet from "./Wallet";
+import { SendOutlined } from '@ant-design/icons';
+import { parseEther } from '@ethersproject/units';
+import { Button, Input, Tooltip } from 'antd';
+import { useLookupAddress } from 'eth-hooks';
+import React, { useCallback, useState } from 'react';
+import Blockies from 'react-blockies';
+import { Transactor } from '../helpers';
+import Wallet from './Wallet';
 
 // improved a bit by converting address to ens if it exists
 // added option to directly input ens name
@@ -39,7 +39,7 @@ export default function Faucet(props) {
   const [address, setAddress] = useState();
 
   let blockie;
-  if (address && typeof address.toLowerCase === "function") {
+  if (address && typeof address.toLowerCase === 'function') {
     blockie = <Blockies seed={address.toLowerCase()} size={8} scale={4} />;
   } else {
     blockie = <div />;
@@ -49,9 +49,9 @@ export default function Faucet(props) {
 
   const updateAddress = useCallback(
     async newValue => {
-      if (typeof newValue !== "undefined") {
+      if (typeof newValue !== 'undefined') {
         let address = newValue;
-        if (address.indexOf(".eth") > 0 || address.indexOf(".xyz") > 0) {
+        if (address.indexOf('.eth') > 0 || address.indexOf('.xyz') > 0) {
           try {
             const possibleAddress = await props.ensProvider.resolveName(address);
             if (possibleAddress) {
@@ -72,7 +72,7 @@ export default function Faucet(props) {
     <span>
       <Input
         size="large"
-        placeholder={props.placeholder ? props.placeholder : "local faucet"}
+        placeholder={props.placeholder ? props.placeholder : 'local faucet'}
         prefix={blockie}
         // value={address}
         value={ens || address}
@@ -86,9 +86,9 @@ export default function Faucet(props) {
               onClick={() => {
                 tx({
                   to: address,
-                  value: parseEther("0.01"),
+                  value: parseEther('0.01'),
                 });
-                setAddress("");
+                setAddress('');
               }}
               shape="circle"
               icon={<SendOutlined />}

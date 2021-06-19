@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
-import useOnBlock from "./OnBlock";
-import usePoller from "./Poller";
+import { useCallback, useState } from 'react';
+import useOnBlock from './OnBlock';
+import usePoller from './Poller';
 
 /*
   ~ What it does? ~
@@ -46,7 +46,7 @@ export default function useBalance(provider, address, pollTime = 0) {
   usePoller(
     async () => {
       if (provider && address && pollTime > 0) {
-        if (DEBUG) console.log("polling!", address);
+        if (DEBUG) console.log('polling!', address);
         pollBalance();
       }
     },

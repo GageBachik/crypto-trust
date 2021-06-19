@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 // helper hook to call a function regularly in time intervals
 const DEBUG = false;
@@ -23,10 +23,10 @@ export default function useOnBlock(provider, fn, args) {
         }
       };
 
-      provider.on("block", listener);
+      provider.on('block', listener);
 
       return () => {
-        provider.off("block", listener);
+        provider.off('block', listener);
       };
     }
   }, [provider]);

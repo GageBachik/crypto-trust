@@ -1,6 +1,6 @@
-import { formatEther } from "@ethersproject/units";
-import React, { useState } from "react";
-import { useBalance } from "../hooks";
+import { formatEther } from '@ethersproject/units';
+import React, { useState } from 'react';
+import { useBalance } from '../hooks';
 
 /*
   ~ What it does? ~
@@ -35,14 +35,14 @@ export default function Balance(props) {
 
   const balance = useBalance(props.provider, props.address);
 
-  let floatBalance = parseFloat("0.00");
+  let floatBalance = parseFloat('0.00');
 
   let usingBalance = balance;
 
-  if (typeof props.balance !== "undefined") {
+  if (typeof props.balance !== 'undefined') {
     usingBalance = props.balance;
   }
-  if (typeof props.value !== "undefined") {
+  if (typeof props.value !== 'undefined') {
     usingBalance = props.value;
   }
 
@@ -57,16 +57,16 @@ export default function Balance(props) {
   const price = props.price || props.dollarMultiplier;
 
   if (price && dollarMode) {
-    displayBalance = "$" + (floatBalance * price).toFixed(2);
+    displayBalance = '$' + (floatBalance * price).toFixed(2);
   }
 
   return (
     <span
       style={{
-        verticalAlign: "middle",
+        verticalAlign: 'middle',
         fontSize: props.size ? props.size : 24,
         padding: 8,
-        cursor: "pointer",
+        cursor: 'pointer',
       }}
       onClick={() => {
         setDollarMode(!dollarMode);

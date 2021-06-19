@@ -1,7 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
-import { Contract } from "@ethersproject/contracts";
-import { useEffect, useState } from "react";
+import { Contract } from '@ethersproject/contracts';
+import { useEffect, useState } from 'react';
 
 /*
   ~ What it does? ~
@@ -43,12 +43,12 @@ export default function useContractLoader(providerOrSigner) {
   const [contracts, setContracts] = useState();
   useEffect(() => {
     async function loadContracts() {
-      if (typeof providerOrSigner !== "undefined") {
+      if (typeof providerOrSigner !== 'undefined') {
         try {
           // we need to check to see if this providerOrSigner has a signer or not
           let signer;
           let accounts;
-          if (providerOrSigner && typeof providerOrSigner.listAccounts === "function") {
+          if (providerOrSigner && typeof providerOrSigner.listAccounts === 'function') {
             accounts = await providerOrSigner.listAccounts();
           }
 
@@ -58,7 +58,7 @@ export default function useContractLoader(providerOrSigner) {
             signer = providerOrSigner;
           }
 
-          const contractList = require("../contracts/contracts.js");
+          const contractList = require('../contracts/contracts.js');
 
           const newContracts = contractList.reduce((accumulator, contractName) => {
             accumulator[contractName] = loadContract(contractName, signer);
@@ -66,7 +66,7 @@ export default function useContractLoader(providerOrSigner) {
           }, {});
           setContracts(newContracts);
         } catch (e) {
-          console.log("ERROR LOADING CONTRACTS!!", e);
+          console.log('ERROR LOADING CONTRACTS!!', e);
         }
       }
     }

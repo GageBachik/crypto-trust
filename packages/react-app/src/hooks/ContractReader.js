@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import useOnBlock from "./OnBlock";
-import usePoller from "./Poller";
+import { useEffect, useState } from 'react';
+import useOnBlock from './OnBlock';
+import usePoller from './Poller';
 
 const DEBUG = false;
 
@@ -26,14 +26,14 @@ export default function useContractReader(contracts, contractName, functionName,
   let adjustPollTime = 0;
   if (pollTime) {
     adjustPollTime = pollTime;
-  } else if (!pollTime && typeof args === "number") {
+  } else if (!pollTime && typeof args === 'number') {
     // it's okay to pass poll time as last argument without args for the call
     adjustPollTime = args;
   }
 
   const [value, setValue] = useState();
   useEffect(() => {
-    if (typeof onChange === "function") {
+    if (typeof onChange === 'function') {
       setTimeout(onChange.bind(this, value), 1);
     }
   }, [value, onChange]);
@@ -41,15 +41,15 @@ export default function useContractReader(contracts, contractName, functionName,
   const updateValue = async () => {
     try {
       let newValue;
-      if (DEBUG) console.log("CALLING ", contractName, functionName, "with args", args);
+      if (DEBUG) console.log('CALLING ', contractName, functionName, 'with args', args);
       if (args && args.length > 0) {
         newValue = await contracts[contractName][functionName](...args);
         if (DEBUG)
-          console.log("contractName", contractName, "functionName", functionName, "args", args, "RESULT:", newValue);
+          console.log('contractName', contractName, 'functionName', functionName, 'args', args, 'RESULT:', newValue);
       } else {
         newValue = await contracts[contractName][functionName]();
       }
-      if (formatter && typeof formatter === "function") {
+      if (formatter && typeof formatter === 'function') {
         newValue = formatter(newValue);
       }
       // console.log("GOT VALUE",newValue)
@@ -72,7 +72,7 @@ export default function useContractReader(contracts, contractName, functionName,
   usePoller(
     async () => {
       if (contracts && contracts[contractName] && adjustPollTime > 0) {
-        if (DEBUG) console.log("polling!", contractName, functionName);
+        if (DEBUG) console.log('polling!', contractName, functionName);
         updateValue();
       }
     },

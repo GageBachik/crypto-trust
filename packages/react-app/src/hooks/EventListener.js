@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 /*
   ~ What it does? ~
@@ -21,7 +21,7 @@ export default function useEventListener(contracts, contractName, eventName, pro
   const [updates, setUpdates] = useState([]);
 
   useEffect(() => {
-    if (typeof provider !== "undefined" && typeof startBlock !== "undefined") {
+    if (typeof provider !== 'undefined' && typeof startBlock !== 'undefined') {
       // if you want to read _all_ events from your contracts, set this to the block number it is deployed
       provider.resetEventsBlock(startBlock);
     }
