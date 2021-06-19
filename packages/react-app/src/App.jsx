@@ -1,16 +1,15 @@
-import { StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
-import { formatEther, parseEther } from "@ethersproject/units";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import { Alert, Button, Col, Menu, Row } from "antd";
-import "antd/dist/antd.css";
-import { useUserAddress } from "eth-hooks";
 import React, { useCallback, useEffect, useState } from "react";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
-import "./App.css";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import { useUserAddress } from "eth-hooks";
+import { formatEther, parseEther } from "@ethersproject/units";
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import { StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
+
+import { Alert, Button, Col, Menu, Row } from "antd";
+import { ExampleUI, Hints, Subgraph, Trusts } from "./views";
 import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
-import { DAI_ABI, DAI_ADDRESS, INFURA_ID, NETWORK, NETWORKS } from "./constants";
-import { Transactor } from "./helpers";
+
 import {
   useBalance,
   useContractLoader,
@@ -22,8 +21,12 @@ import {
   useOnBlock,
   useUserProvider,
 } from "./hooks";
-// import Hints from "./Hints";
-import { ExampleUI, Hints, Subgraph } from "./views";
+import { Transactor } from "./helpers";
+import { DAI_ABI, DAI_ADDRESS, INFURA_ID, NETWORK, NETWORKS } from "./constants";
+
+import "./App.css";
+import "antd/dist/antd.css";
+
 /*
     Welcome to 🏗 scaffold-eth !
 
@@ -352,13 +355,14 @@ function App(props) {
                 and give you a form to interact with it locally
             */}
 
-            <Contract
+            <Trusts />
+            {/* <Contract
               name="YourContract"
               signer={userProvider.getSigner()}
               provider={localProvider}
               address={address}
               blockExplorer={blockExplorer}
-            />
+            /> */}
 
             {/* uncomment for a second contract:
             <Contract
