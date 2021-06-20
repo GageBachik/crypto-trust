@@ -58,12 +58,14 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
-    "web3modal": "^1.9.1"
+    "web3modal": "^1.9.1",
+    "theme-change": "^2.0.2"
   },
   "devDependencies": {
     "@testing-library/dom": "^6.12.2",
     "@types/react": "^16.9.19",
     "chalk": "^4.1.0",
+    "daisyui": "^1.4.0",
     "eslint": "^7.5.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -80,7 +82,7 @@
     "gulp-postcss": "^9.0.0",
     "ipfs-http-client": "^45.0.0",
     "less-plugin-npm-import": "^2.1.0",
-    "postcss": "^7",
+    "postcss": "^8.2.6",
     "prettier": "^2.0.5",
     "s3-folder-upload": "^2.3.1",
     "surge": "^0.21.5"

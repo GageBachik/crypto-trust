@@ -18,21 +18,26 @@ const Trusts = () => {
     //     {showCreateTrustForm && <CreateTrustForm />}
     //   </Content>
     // </Layout>
-    <section className="text-gray-600 body-font">
-      <div className="container px-5 py-24 mx-auto">
-        <div className="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
-          <h1 className="fles-grow sm:pr-16 text-2xl font-medium title-fon text-gray-900">
-            The worlds first fully automated yield earning trust fund. Powered by crypto.
-          </h1>
-          <button
-            className="flex-shrink-0 text-white bg-blue-500 border-0 py-2 px-8 focuse:outline-none hover-:bg-blue-600 rounded text-lg mt-to sm:mt-0"
-            type="button"
-          >
-            Create Trust
-          </button>
+
+    // Welcome to daisy bitch
+    <div className="mockup-window bg-base-300 m-10">
+      <div className="flex justify-center px-4 py-16 bg-base-200">
+        <div className="hero h-1/2 bg-base-200">
+          <div className="text-center hero-content">
+            <div className="max-w-md">
+              <h1 className="mb-5 text-5xl font-bold">Fully automated trust funds</h1>
+              <p className="mb-5">
+                Crypto trusts are the first ever trust funds that allow the trustee to earn yield on their future funds.
+                We are a platform for autmated handling of fund dispersion after the trust term ends.
+              </p>
+              <button className="btn btn-primary" type="button">
+                Create Trust
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
