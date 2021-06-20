@@ -1,8 +1,10 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import React from 'react';
-import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
 import ReactDOM from 'react-dom';
+import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
 import App from './App';
+
 import './index.css';
 
 const themes = {
