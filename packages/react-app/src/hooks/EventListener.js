@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
   - Specify the provider
 */
 
-export default function useEventListener(contracts, contractName, eventName, provider, startBlock, args) {
+export default function useEventListener(contracts, contractName, eventName, provider, startBlock) {
   const [updates, setUpdates] = useState([]);
 
   useEffect(() => {

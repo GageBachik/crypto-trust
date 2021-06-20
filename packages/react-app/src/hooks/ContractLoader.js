@@ -58,7 +58,7 @@ export default function useContractLoader(providerOrSigner) {
             signer = providerOrSigner;
           }
 
-          const contractList = require('../contracts/contracts.js');
+          const contractList = require('../contracts/contracts');
 
           const newContracts = contractList.reduce((accumulator, contractName) => {
             accumulator[contractName] = loadContract(contractName, signer);

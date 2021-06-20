@@ -288,14 +288,6 @@ export const DAI_ABI = [
   },
 ];
 
-export const NETWORK = chainId => {
-  for (const n in NETWORKS) {
-    if (NETWORKS[n].chainId === chainId) {
-      return NETWORKS[n];
-    }
-  }
-};
-
 export const NETWORKS = {
   localhost: {
     name: 'localhost',
@@ -373,4 +365,12 @@ export const NETWORKS = {
     faucet: 'https://faucet.matic.network/',
     blockExplorer: 'https://mumbai-explorer.matic.today/',
   },
+};
+
+export const NETWORK = chainId => {
+  for (const n in NETWORKS) {
+    if (NETWORKS[n].chainId === chainId) {
+      return NETWORKS[n];
+    }
+  }
 };

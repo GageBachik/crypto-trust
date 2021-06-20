@@ -17,6 +17,7 @@ module.exports = {
       },
     ],
     'no-unused-vars': 'warn',
+    'consistent-return': 'off',
     'import/prefer-default-export': 'off',
     'prefer-destructuring': 'off',
     'prefer-template': 'off',

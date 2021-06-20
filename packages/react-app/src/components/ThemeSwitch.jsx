@@ -17,9 +17,9 @@ export default function ThemeSwitcher() {
   };
 
   // Avoid theme change flicker
-  // if (status === "loading") {
-  //   return null;
-  // }
+  if (status === 'loading') {
+    return null;
+  }
 
   return (
     <div className="main fade-in" style={{ position: 'fixed', right: 8, bottom: 8 }}>

@@ -50,17 +50,17 @@ export default function Faucet(props) {
   const updateAddress = useCallback(
     async newValue => {
       if (typeof newValue !== 'undefined') {
-        let address = newValue;
-        if (address.indexOf('.eth') > 0 || address.indexOf('.xyz') > 0) {
+        let newAddress = newValue;
+        if (newAddress.indexOf('.eth') > 0 || newAddress.indexOf('.xyz') > 0) {
           try {
-            const possibleAddress = await props.ensProvider.resolveName(address);
+            const possibleAddress = await props.ensProvider.resolveName(newAddress);
             if (possibleAddress) {
-              address = possibleAddress;
+              newAddress = possibleAddress;
             }
             // eslint-disable-next-line no-empty
           } catch (e) {}
         }
-        setAddress(address);
+        setAddress(newAddress);
       }
     },
     [props.ensProvider, props.onChange],

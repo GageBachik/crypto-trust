@@ -112,8 +112,8 @@ export default function Wallet(props) {
       </Button>
     );
   } else if (pk) {
-    const pk = localStorage.getItem('metaPrivateKey');
-    const wallet = new ethers.Wallet(pk);
+    const privateKey = localStorage.getItem('metaPrivateKey');
+    const wallet = new ethers.Wallet(privateKey);
 
     if (wallet.address !== selectedAddress) {
       display = (
@@ -127,7 +127,7 @@ export default function Wallet(props) {
       extraPkDisplayAdded[wallet.address] = true;
       extraPkDisplay.push(
         <div style={{ fontSize: 16, padding: 2, backgroundStyle: '#89e789' }}>
-          <a href={'/pk#' + pk}>
+          <a href={'/pk#' + privateKey}>
             <Address minimized address={wallet.address} ensProvider={props.ensProvider} /> {wallet.address.substr(0, 6)}
           </a>
         </div>,
@@ -156,20 +156,20 @@ export default function Wallet(props) {
           <b>Private Key:</b>
 
           <div>
-            <Text copyable>{pk}</Text>
+            <Text copyable>{privateKey}</Text>
           </div>
 
           <hr />
 
           <i>
             Point your camera phone at qr code to open in
-            <a target="_blank" href={'https://xdai.io/' + pk} rel="noopener noreferrer">
+            <a target="_blank" href={'https://xdai.io/' + privateKey} rel="noopener noreferrer">
               burner wallet
             </a>
             :
           </i>
           <QR
-            value={'https://xdai.io/' + pk}
+            value={'https://xdai.io/' + privateKey}
             size="450"
             level="H"
             includeMargin
@@ -178,7 +178,7 @@ export default function Wallet(props) {
           />
 
           <Paragraph style={{ fontSize: '16' }} copyable>
-            {'https://xdai.io/' + pk}
+            {'https://xdai.io/' + privateKey}
           </Paragraph>
 
           {extraPkDisplay ? (
@@ -192,8 +192,8 @@ export default function Wallet(props) {
                     window.localStorage.setItem('metaPrivateKey_backup' + Date.now(), currentPrivateKey);
                   }
                   const randomWallet = ethers.Wallet.createRandom();
-                  const privateKey = randomWallet._signingKey().privateKey;
-                  window.localStorage.setItem('metaPrivateKey', privateKey);
+                  const randomPrivateKey = randomWallet._signingKey().privateKey;
+                  window.localStorage.setItem('metaPrivateKey', randomPrivateKey);
                   window.location.reload();
                 }}
               >
