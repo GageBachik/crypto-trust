@@ -27,6 +27,8 @@ module.exports = {
     'jsx-a11y/accessible-emoji': ['off'],
     'jsx-a11y/click-events-have-key-events': ['off'],
     'jsx-a11y/no-static-element-interactions': ['off'],
+    'jsx-a11y/label-has-associated-control': 'off',
+    'jsx-a11y/label-has-for': 'off',
     'no-underscore-dangle': 'off',
     'no-nested-ternary': 'off',
     'no-restricted-syntax': 'off',

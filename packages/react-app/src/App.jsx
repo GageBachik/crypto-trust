@@ -294,7 +294,7 @@ function App(props) {
       <Header />
       {networkDisplay}
       <BrowserRouter>
-        <Menu style={{ textAlign: 'center' }} selectedKeys={[route]} mode="horizontal">
+        {/* <Menu style={{ textAlign: 'center' }} selectedKeys={[route]} mode="horizontal">
           <Menu.Item key="/">
             <Link
               onClick={() => {
@@ -345,7 +345,7 @@ function App(props) {
               Subgraph
             </Link>
           </Menu.Item>
-        </Menu>
+        </Menu> */}
 
         <Switch>
           <Route exact path="/">
