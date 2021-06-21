@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import { gql, useQuery } from '@apollo/client';
 import { Button, Input, Table, Typography } from 'antd';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.min.css';
 import fetch from 'isomorphic-fetch';

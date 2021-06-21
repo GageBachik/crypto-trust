@@ -25,7 +25,7 @@ import { Transactor } from './helpers';
 import { DAI_ABI, DAI_ADDRESS, INFURA_ID, NETWORK, NETWORKS } from './constants';
 
 import './App.css';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 
 /*
     Welcome to 🏗 scaffold-eth !
