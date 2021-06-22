@@ -2,14 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
-  margin: 0;
+.btn-outline.btn-primary {
+  @apply text-neutral;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-#root {
-  height: 100%;
-} */

@@ -10,6 +10,6 @@ module.exports = {
   },
   plugins: [require('daisyui')],
   daisyui: {
-    themes: ['fantasy', 'synthwave'],
+    themes: ['bumblebee', 'dracula'],
   },
 };

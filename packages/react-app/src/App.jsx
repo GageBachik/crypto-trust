@@ -291,8 +291,10 @@ function App(props) {
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
-      <Header />
-      {networkDisplay}
+      {/* <Header /> */}
+
+      {/* {networkDisplay} */}
+
       <BrowserRouter>
         {/* <Menu style={{ textAlign: 'center' }} selectedKeys={[route]} mode="horizontal">
           <Menu.Item key="/">
@@ -432,7 +434,7 @@ function App(props) {
       <ThemeSwitch />
 
       {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10 }}>
+      {/* <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10 }}>
         <Account
           address={address}
           localProvider={localProvider}
@@ -445,10 +447,10 @@ function App(props) {
           blockExplorer={blockExplorer}
         />
         {faucetHint}
-      </div>
+      </div> */}
 
       {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-      <div style={{ position: 'fixed', textAlign: 'left', left: 0, bottom: 20, padding: 10 }}>
+      {/* <div style={{ position: 'fixed', textAlign: 'left', left: 0, bottom: 20, padding: 10 }}>
         <Row align="middle" gutter={[4, 4]}>
           <Col span={8}>
             <Ramp price={price} address={address} networks={NETWORKS} />
@@ -475,17 +477,14 @@ function App(props) {
 
         <Row align="middle" gutter={[4, 4]}>
           <Col span={24}>
-            {
-              /*  if the local provider has a signer, let's show the faucet:  */
-              faucetAvailable ? (
-                <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
-              ) : (
-                ''
-              )
-            }
+            {faucetAvailable ? (
+              <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
+            ) : (
+              ''
+            )}
           </Col>
         </Row>
-      </div>
+      </div> */}
     </div>
   );
 }
