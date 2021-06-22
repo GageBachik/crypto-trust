@@ -1,5 +1,11 @@
+/**
+ * @file TrustFund.sol
+ * @author gagebachik <loser#gagebachik.com>
+ * @date created 21 June 2021
+ * @date last modified 22th June 2021
+ */
+ 
 //SPDX-License-Identifier: BUSL-1.1
-
 pragma solidity >=0.8.0 <0.9.0;
 
 import "hardhat/console.sol";
@@ -7,7 +13,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableMap.sol";
 
-contract TrustFundv2 {
+contract TrustFundManager {
     using Address for address payable;
     using SafeMath for uint256;
     using EnumerableMap for EnumerableMap.UintToAddressMap;
@@ -18,6 +24,9 @@ contract TrustFundv2 {
     mapping(address => uint256) balances;
     uint256 public totalTrusts;
     uint256 public totalTokens;
+    
+    event TrustCreated(address beneficiary, uint256 timelock);
+    event TrustWithdrawn(address beneficiary);
     
     struct Trust {
         bool active;
@@ -63,6 +72,8 @@ contract TrustFundv2 {
         totalTrusts = totalTrusts.add(1);
         t.key = totalTrusts;
         activeBeneficiaries.set(totalTrusts, _beneficiary);
+        
+        emit TrustCreated(_beneficiary, _timelock);
     }
     
     function getActiveTrust(address _beneficiary) view public returns(address, uint256, string memory) {
@@ -86,5 +97,7 @@ contract TrustFundv2 {
             address currToken = activeTokens.get(i);
             payee.sendValue(t.balances[currToken]);
         }
+        
+        emit TrustWithdrawn(_beneficiary);
     }
 }
