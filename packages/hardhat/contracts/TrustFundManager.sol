@@ -9,9 +9,9 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 import "hardhat/console.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/utils/Address.sol";
-import "@openzeppelin/contracts/utils/structs/EnumerableMap.sol";
+import "./lib/SafeMath.sol";
+import "./lib/Address.sol";
+import "./lib/EnumerableMap.sol";
 
 contract TrustFundManager {
     using Address for address payable;
