@@ -91,6 +91,9 @@ contract TrustFundManager {
         Trust storage t = trustFunds[_beneficiary];
         require(block.timestamp > t.timelock, "Trust not mature yet.");
         require(t.active == true, "Trust already payed out.");
+
+        activeBeneficiaries.remove(t.key);
+
         address payable payee = payable(msg.sender);
         t.active = false;
         for (uint256 i = 0; i < activeTokens.length(); i++) {
