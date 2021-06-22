@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 module.exports = {
   purge: ['./src/**/*.html', './src/**/*.{js,jsx}'],
   darkMode: false, // or 'media' or 'class'
@@ -9,6 +10,6 @@ module.exports = {
   },
   plugins: [require('daisyui')],
   daisyui: {
-    themes: ['cyberpunk', 'black'],
+    themes: ['fantasy', 'synthwave'],
   },
 };

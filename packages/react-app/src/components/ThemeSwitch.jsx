@@ -37,7 +37,7 @@ export default function ThemeSwitcher() {
         {!isDarkMode ? '☀️' : '🌜'}
         <input type="checkbox" checked={isDarkMode} className="toggle" />
         <span
-          data-toggle-theme="cyrberpunk,black"
+          data-toggle-theme="fantasy,synthwave"
           data-act-class="active"
           className="toggle-mark"
           onClick={toggleTheme}
