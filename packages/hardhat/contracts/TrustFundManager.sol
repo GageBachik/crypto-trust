@@ -60,7 +60,7 @@ contract TrustFundManager {
     }
     
     function deposit(address _token, address _beneficiary) public payable{
-        Trust storage t = trustFunds[_beneficiary];
+        Trust storage t = trustFunds[_beneficiary]; // TODO: handle trust not existing
         t.balances[_token] = t.balances[_token].add(msg.value);
         balances[_token] = balances[_token].add(msg.value);
     }
@@ -90,12 +90,12 @@ contract TrustFundManager {
         require(_beneficiary == msg.sender, "You're not the beneficiay of this trust");
         Trust storage t = trustFunds[_beneficiary];
         require(block.timestamp > t.timelock, "Trust not mature yet.");
-        require(t.active == true, "Trust already payed out.");
+        require(t.active == false, "Trust already payed out.");
 
         activeBeneficiaries.remove(t.key);
+        t.active = false;
 
         address payable payee = payable(msg.sender);
-        t.active = false;
         for (uint256 i = 0; i < activeTokens.length(); i++) {
             address currToken = activeTokens.get(i);
             payee.sendValue(t.balances[currToken]);

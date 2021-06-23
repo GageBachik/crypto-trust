@@ -162,39 +162,39 @@ function App(props) {
   //
   // 🧫 DEBUG 👨🏻‍🔬
   //
-  useEffect(() => {
-    if (
-      DEBUG &&
-      mainnetProvider &&
-      address &&
-      selectedChainId &&
-      yourLocalBalance &&
-      yourMainnetBalance &&
-      readContracts &&
-      writeContracts &&
-      mainnetDAIContract
-    ) {
-      console.log('_____________________________________ 🏗 scaffold-eth _____________________________________');
-      console.log('🌎 mainnetProvider', mainnetProvider);
-      console.log('🏠 localChainId', localChainId);
-      console.log('👩‍💼 selected address:', address);
-      console.log('🕵🏻‍♂️ selectedChainId:', selectedChainId);
-      console.log('💵 yourLocalBalance', yourLocalBalance ? formatEther(yourLocalBalance) : '...');
-      console.log('💵 yourMainnetBalance', yourMainnetBalance ? formatEther(yourMainnetBalance) : '...');
-      console.log('📝 readContracts', readContracts);
-      console.log('🌍 DAI contract on mainnet:', mainnetDAIContract);
-      console.log('🔐 writeContracts', writeContracts);
-    }
-  }, [
-    mainnetProvider,
-    address,
-    selectedChainId,
-    yourLocalBalance,
-    yourMainnetBalance,
-    readContracts,
-    writeContracts,
-    mainnetDAIContract,
-  ]);
+  // useEffect(() => {
+  //   if (
+  //     DEBUG &&
+  //     mainnetProvider &&
+  //     address &&
+  //     selectedChainId &&
+  //     yourLocalBalance &&
+  //     yourMainnetBalance &&
+  //     readContracts &&
+  //     writeContracts &&
+  //     mainnetDAIContract
+  //   ) {
+  //     console.log('_____________________________________ 🏗 scaffold-eth _____________________________________');
+  //     console.log('🌎 mainnetProvider', mainnetProvider);
+  //     console.log('🏠 localChainId', localChainId);
+  //     console.log('👩‍💼 selected address:', address);
+  //     console.log('🕵🏻‍♂️ selectedChainId:', selectedChainId);
+  //     console.log('💵 yourLocalBalance', yourLocalBalance ? formatEther(yourLocalBalance) : '...');
+  //     console.log('💵 yourMainnetBalance', yourMainnetBalance ? formatEther(yourMainnetBalance) : '...');
+  //     console.log('📝 readContracts', readContracts);
+  //     console.log('🌍 DAI contract on mainnet:', mainnetDAIContract);
+  //     console.log('🔐 writeContracts', writeContracts);
+  //   }
+  // }, [
+  //   mainnetProvider,
+  //   address,
+  //   selectedChainId,
+  //   yourLocalBalance,
+  //   yourMainnetBalance,
+  //   readContracts,
+  //   writeContracts,
+  //   mainnetDAIContract,
+  // ]);
 
   let networkDisplay = '';
   if (localChainId && selectedChainId && localChainId !== selectedChainId) {
@@ -357,7 +357,7 @@ function App(props) {
                 and give you a form to interact with it locally
             */}
 
-            <Trusts />
+            <Trusts tx={tx} provider={userProvider} readContracts={readContracts} writeContracts={writeContracts} />
             {/* <Contract
               name="YourContract"
               signer={userProvider.getSigner()}

@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
   },
   extends: ['airbnb', 'plugin:prettier/recommended', 'prettier/react'],
-  plugins: ['babel'],
+  plugins: ['babel', 'react-hooks'],
   rules: {
     'prettier/prettier': ['error'],
     'import/extensions': [
@@ -34,5 +34,7 @@ module.exports = {
     'no-restricted-syntax': 'off',
     'no-plusplus': 'off',
     'react/jsx-curly-brace-presence': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
 };

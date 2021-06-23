@@ -1,11 +1,21 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 const CreateTrustForm = props => {
-  const { onCancel } = props;
+  const { onSubmit, onCancel } = props;
 
-  const onSubmit = useCallback(() => {}, []);
+  const addressRef = useRef();
+  const dayRef = useRef();
+  const monthRef = useRef();
+  const yearRef = useRef();
 
-  const onSubmitFailed = useCallback(() => {}, []);
+  const handleSubmit = useCallback(() => {
+    const address = addressRef.current ? addressRef.current.value : null;
+    const day = dayRef.current ? dayRef.current.value : null;
+    const month = monthRef.current ? monthRef.current.value : null;
+    const year = yearRef.current ? yearRef.current.value : null;
+
+    onSubmit(address, day, month, year);
+  }, [onSubmit]);
 
   return (
     <div className="p-10 card bg-base-200 mx-8">
@@ -13,18 +23,18 @@ const CreateTrustForm = props => {
         <label className="label">
           <span className="label-text">{"Beneficiary's Address"}</span>
         </label>
-        <input type="text" placeholder="Address" className="input" />
+        <input ref={addressRef} type="text" placeholder="Address" className="input" defaultValue="ASDF" />
         <label className="label">
           <span className="label-text">Fund Unlock Date</span>
         </label>
         <div className="grid grid-cols-3 gap-4">
-          <select className="select select-bordered w-full ">
+          <select ref={dayRef} className="select select-bordered w-full ">
             <option>Day</option>
             <option>01</option>
             <option>02</option>
             <option>03</option>
             <option>04</option>
-            <option>05</option>
+            <option selected>05</option>
             <option>06</option>
             <option>07</option>
             <option>08</option>
@@ -52,9 +62,9 @@ const CreateTrustForm = props => {
             <option>30</option>
             <option>31</option>
           </select>
-          <select className="select select-bordered w-full">
+          <select ref={monthRef} className="select select-bordered w-full">
             <option>Month</option>
-            <option>Jan</option>
+            <option selected>Jan</option>
             <option>Feb</option>
             <option>Mar</option>
             <option>Apr</option>
@@ -66,13 +76,13 @@ const CreateTrustForm = props => {
             <option>Nov</option>
             <option>Dec</option>
           </select>
-          <select className="select select-bordered w-full ">
+          <select ref={yearRef} className="select select-bordered w-full ">
             <option>Year</option>
             <option>2021</option>
             <option>2022</option>
             <option>2023</option>
             <option>2024</option>
-            <option>2025</option>
+            <option selected>2025</option>
             <option>2026</option>
             <option>2027</option>
             <option>2028</option>
@@ -99,7 +109,7 @@ const CreateTrustForm = props => {
             <option>2049</option>
           </select>
         </div>
-        <button className="btn btn-primary mt-8" type="button">
+        <button className="btn btn-primary mt-8" type="button" onClick={handleSubmit}>
           Submit
         </button>
         <button className="btn btn-ghost mt-2" type="button" onClick={onCancel}>
