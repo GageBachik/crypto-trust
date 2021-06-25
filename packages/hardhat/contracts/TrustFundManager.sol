@@ -66,6 +66,7 @@ contract TrustFundManager {
     }
     
     function createTrust(address _beneficiary, uint256 _timelock) public{
+        // require(trustFunds[_beneficiary] == null, "You already setup a fund");
         Trust storage t = trustFunds[_beneficiary];
         t.active = true;
         t.timelock = _timelock;
@@ -85,6 +86,16 @@ contract TrustFundManager {
         }
         return (_beneficiary, t.timelock, allBalances);
     }
+    
+    // pulling arrays is solidity sucks (dog waterrrrr)
+    // function getActiveTrusts() public{
+    //   Trust[] storage allTrusts;
+    //   for (uint256 i = 0; i < activeBeneficiaries.length(); i++) {
+    //       Trust storage t = trustFunds[activeBeneficiaries.get(i)];
+    //       allTrusts.push(t);
+    //   }
+    //   return (allTrusts);
+    // }
     
     function withdrawTrust(address _beneficiary) public{
         require(_beneficiary == msg.sender, "You're not the beneficiay of this trust");

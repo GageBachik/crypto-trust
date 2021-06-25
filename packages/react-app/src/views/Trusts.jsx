@@ -4,6 +4,7 @@ import { path } from 'ramda';
 import { ethers } from 'ethers';
 
 import CreateTrustForm from '../components/CreateTrustForm';
+import TrustCard from '../components/TrustCard';
 
 import { useContractReader } from '../hooks';
 
@@ -13,7 +14,7 @@ const Trusts = props => {
   const [showCreateTrustForm, setShowCreateTrustForm] = useState(true);
 
   const totalTrusts = useContractReader(readContracts, 'TrustFundManager', 'totalTrusts');
-  const myTrustFunds = useContractReader(readContracts, 'TrustFundManager', 'getActiveTrust', [address]);
+  const myTrustFund = useContractReader(readContracts, 'TrustFundManager', 'getActiveTrust', [address]);
 
   const totalTrustNumber = useMemo(() => {
     return totalTrusts ? totalTrusts.toNumber() : null;
@@ -50,7 +51,7 @@ const Trusts = props => {
   // console.log('writeContracts', writeContracts);
   // console.log('totalTrusts', totalTrusts);
   console.log('totalTrustNumber', totalTrustNumber);
-  console.log('myTrustFunds', myTrustFunds);
+  console.log('myTrustFund', myTrustFund);
 
   return (
     // Welcome to daisy bitch
@@ -63,21 +64,7 @@ const Trusts = props => {
         </button>
       )}
 
-      {}
-
-      <div className="p-8">
-        <div className="card flex flex-row items-center shadow bg-base-200 p-4">
-          <div className="card-body text-left">
-            <h2 className="card-title">Trust 1</h2>
-            <p>$99,999</p>
-          </div>
-          <div>
-            <button type="button" className="btn btn-primary btn-outline border-primary">
-              Click
-            </button>
-          </div>
-        </div>
-      </div>
+      {myTrustFund && <TrustCard trust={myTrustFund} />}
     </div>
   );
 };
