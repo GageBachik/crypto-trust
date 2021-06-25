@@ -37,6 +37,7 @@ const Trusts = props => {
       console.log('writeContracts', writeContracts);
       console.log('writeContracts.TrustFundManager', writeContracts.TrustFundManager);
 
+      tx(writeContracts.TrustFundManager.deposit('0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', beneficiaryAddress));
       tx(writeContracts.TrustFundManager.createTrust(beneficiaryAddress, matureDate));
 
       console.log('DONE');
@@ -64,7 +65,9 @@ const Trusts = props => {
         </button>
       )}
 
-      {myTrustFund && <TrustCard trust={myTrustFund} />}
+      {myTrustFund && (
+        <TrustCard trust={myTrustFund} tx={tx} writeContracts={writeContracts} readContracts={readContracts} />
+      )}
     </div>
   );
 };

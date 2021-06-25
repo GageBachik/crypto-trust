@@ -21,7 +21,7 @@ contract TrustFundManager {
     EnumerableMap.UintToAddressMap private activeBeneficiaries;
     EnumerableMap.UintToAddressMap private activeTokens;
     mapping(address => Trust) private trustFunds;
-    mapping(address => uint256) balances;
+    mapping(address => uint256) public balances;
     uint256 public totalTrusts;
     uint256 public totalTokens;
     
@@ -63,6 +63,9 @@ contract TrustFundManager {
         Trust storage t = trustFunds[_beneficiary]; // TODO: handle trust not existing
         t.balances[_token] = t.balances[_token].add(msg.value);
         balances[_token] = balances[_token].add(msg.value);
+        console.log('t.balances[_token]', t.balances[_token]);
+        console.log('t.balances[_token]', t.balances[_token].add(msg.value));
+        console.log('msgvalue',msg.value);
     }
     
     function createTrust(address _beneficiary, uint256 _timelock) public{
@@ -79,6 +82,8 @@ contract TrustFundManager {
     
     function getActiveTrust(address _beneficiary) view public returns(address, uint256, string memory) {
         Trust storage t = trustFunds[_beneficiary];
+        // console.log(t.balances);
+        console.log(t.balances[0xaF443f64B078d31b81A8E044895B56696518d803]);
         string memory allBalances;
         for (uint256 i = 0; i < activeTokens.length(); i++) {
             address currToken = activeTokens.get(i);
