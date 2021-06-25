@@ -357,7 +357,13 @@ function App(props) {
                 and give you a form to interact with it locally
             */}
 
-            <Trusts tx={tx} provider={userProvider} readContracts={readContracts} writeContracts={writeContracts} />
+            <Trusts
+              address={address}
+              tx={tx}
+              provider={userProvider}
+              readContracts={readContracts}
+              writeContracts={writeContracts}
+            />
             {/* <Contract
               name="YourContract"
               signer={userProvider.getSigner()}
@@ -434,7 +440,7 @@ function App(props) {
       <ThemeSwitch />
 
       {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      {/* <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10 }}>
+      <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10 }}>
         <Account
           address={address}
           localProvider={localProvider}
@@ -447,10 +453,10 @@ function App(props) {
           blockExplorer={blockExplorer}
         />
         {faucetHint}
-      </div> */}
+      </div>
 
       {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-      {/* <div style={{ position: 'fixed', textAlign: 'left', left: 0, bottom: 20, padding: 10 }}>
+      <div style={{ position: 'fixed', textAlign: 'left', left: 0, bottom: 20, padding: 10 }}>
         <Row align="middle" gutter={[4, 4]}>
           <Col span={8}>
             <Ramp price={price} address={address} networks={NETWORKS} />
@@ -484,7 +490,7 @@ function App(props) {
             )}
           </Col>
         </Row>
-      </div> */}
+      </div>
     </div>
   );
 }

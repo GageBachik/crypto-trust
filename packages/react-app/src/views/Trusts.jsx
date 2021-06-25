@@ -8,11 +8,16 @@ import CreateTrustForm from '../components/CreateTrustForm';
 import { useContractReader } from '../hooks';
 
 const Trusts = props => {
-  const { tx, provider, readContracts, writeContracts } = props;
+  const { address, tx, provider, readContracts, writeContracts } = props;
 
   const [showCreateTrustForm, setShowCreateTrustForm] = useState(true);
 
   const totalTrusts = useContractReader(readContracts, 'TrustFundManager', 'totalTrusts');
+  const myTrustFunds = useContractReader(readContracts, 'TrustFundManager', 'getActiveTrust', [address]);
+
+  const totalTrustNumber = useMemo(() => {
+    return totalTrusts ? totalTrusts.toNumber() : null;
+  }, [totalTrusts]);
 
   const getCurrentBlockTimestamp = useCallback(async () => {
     const block = await provider.getBlock();
@@ -21,17 +26,17 @@ const Trusts = props => {
   }, [provider]);
 
   const handleSubmit = useCallback(
-    async (address, day, month, year) => {
+    async (beneficiaryAddress, day, month, year) => {
       const matureDate = moment(`${year}-${month}-${day}`).unix();
 
       // console.log('currentBlockTimestamp', currentBlockTimestamp);
-      // console.log('address', address);
+      // console.log('beneficiaryAddress', beneficiaryAddress);
       // console.log('matureDate', matureDate);
 
       console.log('writeContracts', writeContracts);
       console.log('writeContracts.TrustFundManager', writeContracts.TrustFundManager);
 
-      tx(writeContracts.TrustFundManager.createTrust(address, matureDate));
+      tx(writeContracts.TrustFundManager.createTrust(beneficiaryAddress, matureDate));
 
       console.log('DONE');
     },
@@ -43,7 +48,9 @@ const Trusts = props => {
   }, []);
 
   // console.log('writeContracts', writeContracts);
-  console.log('totalTrusts', totalTrusts);
+  // console.log('totalTrusts', totalTrusts);
+  console.log('totalTrustNumber', totalTrustNumber);
+  console.log('myTrustFunds', myTrustFunds);
 
   return (
     // Welcome to daisy bitch
@@ -55,6 +62,8 @@ const Trusts = props => {
           Create Trust
         </button>
       )}
+
+      {}
 
       <div className="p-8">
         <div className="card flex flex-row items-center shadow bg-base-200 p-4">
