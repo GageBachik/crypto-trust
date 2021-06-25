@@ -12,7 +12,9 @@ const TrustCard = props => {
           <h2 className="card-title">My Trust Fund</h2>
           <p>{trust[0]}</p>
           <p>Unlocks: {moment.unix(trust[1].toNumber()).format('dddd, MMMM Do YYYY')}</p>
-          <p>Value: {trust[2]}</p>
+          <p>
+            Token: {trust[2].toString()} | Value: {trust[3].toString()}
+          </p>
         </div>
         <div>
           <button
