@@ -72,6 +72,7 @@ contract TrustFundManager is Ownable{
     
     function createTrust(address _beneficiary, uint256 _timelock) public{
         Trust storage t = trustFunds[_beneficiary];
+        require(t.timelock == 0, "You Already Have A Trust");
         t.active = true;
         console.log('timelock', _timelock);
         t.timelock = _timelock;
@@ -96,16 +97,23 @@ contract TrustFundManager is Ownable{
         require(_beneficiary == msg.sender, "You're not the beneficiay of this trust");
         Trust storage t = trustFunds[_beneficiary];
         require(block.timestamp > t.timelock, "Trust not mature yet.");
-        require(t.active == false, "Trust already payed out.");
+        require(t.active == true, "Trust already payed out.");
 
         t.active = false;
+        t.timelock = 0;
 
         address payable payee = payable(msg.sender);
-        //fix withdraw
-        // for (uint256 i = 0; i < activeTokens.length(); i++) {
-        //     address currToken = activeTokens.get(i);
-        //     payee.sendValue(t.balances[currToken]);
-        // }
+
+        uint256 amount = t.balances[chainTokenAddress]; 
+        t.balances[chainTokenAddress] = 0;
+        payee.transfer(amount);
+
+        for (uint256 i = 1; i < t.tokensList.length; i++) {
+            address currToken = t.tokensList[i];
+            uint256 total = t.balances[currToken];
+            t.balances[currToken] = 0;
+            IERC20(currToken).transferFrom(address(this), payee, total);
+        }
         
         emit TrustWithdrawn(_beneficiary);
     }

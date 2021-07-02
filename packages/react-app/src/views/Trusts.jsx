@@ -20,12 +20,6 @@ const Trusts = props => {
     return totalTrusts ? totalTrusts.toNumber() : null;
   }, [totalTrusts]);
 
-  const getCurrentBlockTimestamp = useCallback(async () => {
-    const block = await provider.getBlock();
-
-    return block.timestamp;
-  }, [provider]);
-
   const handleSubmit = useCallback(
     async (beneficiaryAddress, day, month, year) => {
       const matureDate = moment(`${year}-${month}-${day}`).unix();
@@ -57,7 +51,7 @@ const Trusts = props => {
 
   return (
     // Welcome to daisy bitch
-    <div className="mockup-window flex flex-col bg-base-300 m-10 x-8">
+    <div className="mockup-window flex flex-col bg-base-300 m-10 pb-10 x-8">
       {showCreateTrustForm ? (
         <CreateTrustForm onSubmit={handleSubmit} onCancel={handleCancel} />
       ) : (
@@ -67,7 +61,13 @@ const Trusts = props => {
       )}
 
       {myTrustFund && myTrustFund[1].toNumber() > 0 && (
-        <TrustCard trust={myTrustFund} tx={tx} writeContracts={writeContracts} readContracts={readContracts} />
+        <TrustCard
+          trust={myTrustFund}
+          tx={tx}
+          writeContracts={writeContracts}
+          readContracts={readContracts}
+          provider={provider}
+        />
       )}
     </div>
   );
