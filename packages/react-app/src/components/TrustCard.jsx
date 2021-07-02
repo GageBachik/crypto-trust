@@ -22,9 +22,14 @@ const TrustCard = props => {
             className="btn btn-primary btn-outline border-primary"
             onClick={() => {
               tx(
-                writeContracts.TrustFundManager.deposit('0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', trust[0], {
-                  value: parseEther('0.001'),
-                }),
+                writeContracts.TrustFundManager.deposit(
+                  '0x0000000000000000000000000000000000000000',
+                  trust[0],
+                  '1000000000000000',
+                  {
+                    value: parseEther('0.001'),
+                  },
+                ),
               );
               tx(readContracts.TrustFundManager.balances('0xaF443f64B078d31b81A8E044895B56696518d803'));
             }}

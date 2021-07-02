@@ -34,10 +34,10 @@ const Trusts = props => {
       // console.log('beneficiaryAddress', beneficiaryAddress);
       // console.log('matureDate', matureDate);
 
-      console.log('writeContracts', writeContracts);
-      console.log('writeContracts.TrustFundManager', writeContracts.TrustFundManager);
+      // console.log('writeContracts', writeContracts);
+      // console.log('writeContracts.TrustFundManager', writeContracts.TrustFundManager);
 
-      tx(writeContracts.TrustFundManager.deposit('0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', beneficiaryAddress));
+      // tx(writeContracts.TrustFundManager.deposit('0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', beneficiaryAddress));
       tx(writeContracts.TrustFundManager.createTrust(beneficiaryAddress, matureDate));
 
       console.log('DONE');
@@ -53,6 +53,7 @@ const Trusts = props => {
   // console.log('totalTrusts', totalTrusts);
   console.log('totalTrustNumber', totalTrustNumber);
   console.log('myTrustFund', myTrustFund);
+  // console.log('myTrustFund expiry', myTrustFund[1].toNumber());
 
   return (
     // Welcome to daisy bitch
@@ -65,7 +66,7 @@ const Trusts = props => {
         </button>
       )}
 
-      {myTrustFund && (
+      {myTrustFund && myTrustFund[1].toNumber() > 0 && (
         <TrustCard trust={myTrustFund} tx={tx} writeContracts={writeContracts} readContracts={readContracts} />
       )}
     </div>
