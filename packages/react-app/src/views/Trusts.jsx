@@ -11,7 +11,7 @@ import { useContractReader } from '../hooks';
 const Trusts = props => {
   const { address, tx, provider, readContracts, writeContracts } = props;
 
-  const [showCreateTrustForm, setShowCreateTrustForm] = useState(true);
+  const [showCreateTrustForm, setShowCreateTrustForm] = useState(false);
 
   const totalTrusts = useContractReader(readContracts, 'TrustFundManager', 'totalTrusts');
   const myTrustFund = useContractReader(readContracts, 'TrustFundManager', 'getActiveTrust', [address]);
@@ -22,6 +22,7 @@ const Trusts = props => {
 
   const handleSubmit = useCallback(
     async (beneficiaryAddress, day, month, year) => {
+      setShowCreateTrustForm(false);
       const matureDate = moment(`${year}-${month}-${day}`).unix();
 
       // console.log('currentBlockTimestamp', currentBlockTimestamp);

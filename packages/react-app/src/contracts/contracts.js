@@ -1,1 +1,1 @@
-module.exports = ["TrustFundManager"];
+module.exports = ["TrustFundManager","USDMToken"];
