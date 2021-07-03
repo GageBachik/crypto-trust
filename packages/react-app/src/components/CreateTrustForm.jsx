@@ -23,7 +23,7 @@ const CreateTrustForm = props => {
         <label className="label">
           <span className="label-text">{"Beneficiary's Address"}</span>
         </label>
-        <input ref={addressRef} type="text" placeholder="Address" className="input" defaultValue="ASDF" />
+        <input ref={addressRef} type="text" placeholder="Address" className="input" defaultValue="0x0000" />
         <label className="label">
           <span className="label-text">Fund Unlock Date</span>
         </label>

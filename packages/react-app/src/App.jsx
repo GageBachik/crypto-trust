@@ -356,14 +356,15 @@ function App(props) {
                 this <Contract/> component will automatically parse your ABI
                 and give you a form to interact with it locally
             */}
-
-            <Trusts
-              address={address}
-              tx={tx}
-              provider={userProvider}
-              readContracts={readContracts}
-              writeContracts={writeContracts}
-            />
+            <div className="flex items-center justify-center h-screen">
+              <Trusts
+                address={address}
+                tx={tx}
+                provider={userProvider}
+                readContracts={readContracts}
+                writeContracts={writeContracts}
+              />
+            </div>
             {/* <Contract
               name="YourContract"
               signer={userProvider.getSigner()}
@@ -393,7 +394,7 @@ function App(props) {
             />
             */}
           </Route>
-          <Route path="/hints">
+          {/* <Route path="/hints">
             <Hints
               address={address}
               yourLocalBalance={yourLocalBalance}
@@ -433,7 +434,7 @@ function App(props) {
               writeContracts={writeContracts}
               mainnetProvider={mainnetProvider}
             />
-          </Route>
+          </Route> */}
         </Switch>
       </BrowserRouter>
 

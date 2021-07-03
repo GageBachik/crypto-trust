@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { parseEther } from '@ethersproject/units';
+import TrustModal from './TrustModal';
 
 const TrustCard = props => {
   const { trust, tx, writeContracts, readContracts, provider } = props;
@@ -60,6 +61,11 @@ const TrustCard = props => {
           >
             Load
           </button>
+          <label htmlFor="my-modal-2" className="btn btn-primary">
+            Load
+          </label>
+          <input type="checkbox" id="my-modal-2" className="modal-toggle" />
+          <TrustModal />
         </div>
       </div>
     </div>
