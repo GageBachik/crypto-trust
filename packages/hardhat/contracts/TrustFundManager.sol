@@ -117,4 +117,9 @@ contract TrustFundManager is Ownable{
         
         emit TrustWithdrawn(_beneficiary);
     }
+
+    fallback() external payable{
+        console.log('fallback');
+        // emit Log(gasleft());
+    }
 }
