@@ -14,7 +14,7 @@ const Trusts = props => {
 
   useEffect(() => {
     const url =
-      'https://api.covalenthq.com/v1/137/address/0x28B83f82DCeE386a136672064b39FA0cD083B630/balances_v2/?nft=true&no-nft-fetch=true&quote-currency=USD&key=ckey_b815be497ee9409ca5422514f62';
+      'https://api.covalenthq.com/v1/137/address/0x941AC5264e57b5875F92378166229A7089e20c55/balances_v2/?nft=true&no-nft-fetch=true&quote-currency=USD&key=ckey_b815be497ee9409ca5422514f62';
     const fetchData = async () => {
       try {
         const response = await fetch(url);

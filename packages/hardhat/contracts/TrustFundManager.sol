@@ -16,7 +16,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-import {ILendingPool, IprotocolDataProvider} from "@aave/protocol-v2/contracts/interfaces/ILendingPool.sol";
+// import {ILendingPool, IprotocolDataProvider} from "@aave/protocol-v2/contracts/interfaces/ILendingPool.sol";
 
 contract TrustFundManager is Ownable{
     using Address for address payable;
@@ -35,8 +35,8 @@ contract TrustFundManager is Ownable{
     AggregatorV3Interface internal priceFeed;
 
     //import aave contracts
-    ILendingPool constant lendingPool = ILendingPool(address(0x8dff5e27ea6b7ac08ebfdf9eb090f32ee9a30fcf)); // Polygon
-    IProtocolDataProvider constant dataProvider = IProtocolDataProvider(address(0x7551b5D2763519d4e37e8B81929D336De671d46d)); // Polygon
+    // ILendingPool constant lendingPool = ILendingPool(address(0x8dff5e27ea6b7ac08ebfdf9eb090f32ee9a30fcf)); // Polygon
+    // IProtocolDataProvider constant dataProvider = IProtocolDataProvider(address(0x7551b5D2763519d4e37e8B81929D336De671d46d)); // Polygon
     //end
     
     event TrustCreated(address beneficiary, uint256 timelock);
@@ -60,19 +60,19 @@ contract TrustFundManager is Ownable{
 
     // aave base functions
 
-    function depositCollateral(address asset, uint256 amount, bool isPull) public onlyOwner{
-        if (isPull) {
-            IERC20(asset).safeTransferFrom(msg.sender, address(this), amount);
-        }
-        IERC20(asset).safeApprove(address(lendingPool), amount);
-        lendingPool.deposit(asset, amount, address(this), 0);
-    }
+    // function depositCollateral(address asset, uint256 amount, bool isPull) public onlyOwner{
+    //     if (isPull) {
+    //         IERC20(asset).safeTransferFrom(msg.sender, address(this), amount);
+    //     }
+    //     IERC20(asset).safeApprove(address(lendingPool), amount);
+    //     lendingPool.deposit(asset, amount, address(this), 0);
+    // }
 
-    function withdrawCollateral(address asset) public onlyOwner{
-        (address aTokenAddress,,) = dataProvider.getReserveTokensAddresses(asset);
-        uint256 assetBalance = IERC20(aTokenAddress).balanceOf(address(this));
-        lendingPool.withdraw(asset, assetBalance, owner);
-    }
+    // function withdrawCollateral(address asset) public onlyOwner{
+    //     (address aTokenAddress,,) = dataProvider.getReserveTokensAddresses(asset);
+    //     uint256 assetBalance = IERC20(aTokenAddress).balanceOf(address(this));
+    //     lendingPool.withdraw(asset, assetBalance, owner);
+    // }
 
     // aave functions end
 
@@ -163,6 +163,10 @@ contract TrustFundManager is Ownable{
         }
         
         emit TrustWithdrawn(_beneficiary);
+    }
+    
+    function safetyWithdraw() public onlyOwner {
+        payable(msg.sender).transfer(address(this).balance);
     }
 
     fallback() external payable{
