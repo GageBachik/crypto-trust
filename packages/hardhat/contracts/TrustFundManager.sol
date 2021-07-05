@@ -2,7 +2,7 @@
  * @file TrustFund.sol
  * @author gagebachik <loser#gagebachik.com>
  * @date created 21 June 2021
- * @date last modified 22th June 2021
+ * @date last modified 4th July 2021
  */
  
 //SPDX-License-Identifier: BUSL-1.1
@@ -15,6 +15,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
+import {ILendingPool, IprotocolDataProvider} from "@aave/protocol-v2/contracts/interfaces/ILendingPool.sol";
 
 contract TrustFundManager is Ownable{
     using Address for address payable;
@@ -31,6 +33,11 @@ contract TrustFundManager is Ownable{
     mapping(address => uint256) public balances;
 
     AggregatorV3Interface internal priceFeed;
+
+    //import aave contracts
+    ILendingPool constant lendingPool = ILendingPool(address(0x8dff5e27ea6b7ac08ebfdf9eb090f32ee9a30fcf)); // Polygon
+    IProtocolDataProvider constant dataProvider = IProtocolDataProvider(address(0x7551b5D2763519d4e37e8B81929D336De671d46d)); // Polygon
+    //end
     
     event TrustCreated(address beneficiary, uint256 timelock);
     event TrustWithdrawn(address beneficiary);
@@ -49,6 +56,25 @@ contract TrustFundManager is Ownable{
         balances[chainTokenAddress] = 0;
         priceFeed = AggregatorV3Interface(0xAB594600376Ec9fD91F8e885dADF0CE036862dE0);
     }
+
+
+    // aave base functions
+
+    function depositCollateral(address asset, uint256 amount, bool isPull) public onlyOwner{
+        if (isPull) {
+            IERC20(asset).safeTransferFrom(msg.sender, address(this), amount);
+        }
+        IERC20(asset).safeApprove(address(lendingPool), amount);
+        lendingPool.deposit(asset, amount, address(this), 0);
+    }
+
+    function withdrawCollateral(address asset) public onlyOwner{
+        (address aTokenAddress,,) = dataProvider.getReserveTokensAddresses(asset);
+        uint256 assetBalance = IERC20(aTokenAddress).balanceOf(address(this));
+        lendingPool.withdraw(asset, assetBalance, owner);
+    }
+
+    // aave functions end
 
     function getThePrice() public view returns (int) {
         (
@@ -143,4 +169,5 @@ contract TrustFundManager is Ownable{
         console.log('fallback');
         // emit Log(gasleft());
     }
+
 }
