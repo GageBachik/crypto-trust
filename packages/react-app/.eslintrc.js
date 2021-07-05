@@ -36,5 +36,6 @@ module.exports = {
     'react/jsx-curly-brace-presence': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
   },
 };

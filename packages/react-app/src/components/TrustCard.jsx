@@ -104,7 +104,7 @@ const TrustCard = props => {
               Withdraw
             </button>
           )}
-          <button
+          {/* <button
             type="button"
             className="btn btn-primary btn-outline border-primary"
             onClick={() => {
@@ -122,12 +122,19 @@ const TrustCard = props => {
             }}
           >
             Load
-          </button>
+          </button> */}
           <label htmlFor="my-modal-2" className="btn btn-primary m-1">
             Load
           </label>
           <input type="checkbox" id="my-modal-2" className="modal-toggle m-1" />
-          <TrustModal />
+          <TrustModal
+            trust={trust}
+            tx={tx}
+            writeContracts={writeContracts}
+            readContracts={readContracts}
+            provider={provider}
+            mainnetMatic={mainnetMatic}
+          />
         </div>
       </div>
     </div>
