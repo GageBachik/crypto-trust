@@ -14,6 +14,8 @@ import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
 contract TrustFundManager is Ownable{
     using Address for address payable;
 
@@ -28,6 +30,7 @@ contract TrustFundManager is Ownable{
     mapping(address => Trust) private trustFunds;
     mapping(address => uint256) public balances;
 
+    AggregatorV3Interface internal priceFeed;
     
     event TrustCreated(address beneficiary, uint256 timelock);
     event TrustWithdrawn(address beneficiary);
@@ -44,6 +47,18 @@ contract TrustFundManager is Ownable{
     constructor(){
         tokenList.push(chainTokenAddress);
         balances[chainTokenAddress] = 0;
+        priceFeed = AggregatorV3Interface(0xAB594600376Ec9fD91F8e885dADF0CE036862dE0);
+    }
+
+    function getThePrice() public view returns (int) {
+        (
+            uint80 roundID, 
+            int price,
+            uint startedAt,
+            uint timeStamp,
+            uint80 answeredInRound
+        ) = priceFeed.latestRoundData();
+        return price;
     }
     
     function getBankBalance() public view returns(address[] memory,uint256[] memory){
@@ -86,9 +101,15 @@ contract TrustFundManager is Ownable{
         address[] memory currentTokens = t.tokensList;
         uint256[] memory currBalances = new uint256[](currentTokens.length);
         // currBalances[0] = t.chainTokenBalance;
+        // uint256 maticPrice = uint256(getThePrice());
+        // console.log(maticPrice);
         for (uint256 i = 0; i < currentTokens.length; i++) {
             console.log('currbalances', currBalances[i]);
-            currBalances[i] = t.balances[currentTokens[i]];
+            // if ( i == 0){
+            //     currBalances[i] = t.balances[currentTokens[i]] * uint256(getThePrice());
+            // }else {
+                currBalances[i] = t.balances[currentTokens[i]];
+            // }
         }
         return (_beneficiary, t.timelock, currentTokens, currBalances);
     }

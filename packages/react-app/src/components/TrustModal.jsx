@@ -9,11 +9,11 @@ const TrustModal = props => {
           repudiandae et. Nulla ea quasi eligendi. Saepe velit autem minima.
         </p>
         <div className="modal-action">
-          <label htmlFor="my-modal-2" className="btn btn-primary">
-            Accept
+          <label htmlFor="my-modal-2" className="btn w-1/2">
+            Cancel
           </label>
-          <label htmlFor="my-modal-2" className="btn">
-            Close
+          <label htmlFor="my-modal-2" className="btn btn-primary w-1/2">
+            Fund
           </label>
         </div>
       </div>

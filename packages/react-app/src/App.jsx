@@ -61,6 +61,7 @@ if (DEBUG) console.log('📡 Connecting to Mainnet Ethereum');
 // Using StaticJsonRpcProvider as the chainId won't change see https://github.com/ethers-io/ethers.js/issues/901
 const scaffoldEthProvider = new StaticJsonRpcProvider('https://rpc.scaffoldeth.io:48544');
 const mainnetInfura = new StaticJsonRpcProvider('https://mainnet.infura.io/v3/' + INFURA_ID);
+const mainnetMatic = new StaticJsonRpcProvider('https://matic-mainnet.chainstacklabs.com');
 // ( ⚠️ Getting "failed to meet quorum" errors? Check your INFURA_I
 
 // 🏠 Your local provider is usually pointed at your local blockchain
@@ -175,14 +176,14 @@ function App(props) {
   //     mainnetDAIContract
   //   ) {
   //     console.log('_____________________________________ 🏗 scaffold-eth _____________________________________');
-  //     console.log('🌎 mainnetProvider', mainnetProvider);
+  // console.log('🌎 mainnetProvider', mainnetProvider);
   //     console.log('🏠 localChainId', localChainId);
   //     console.log('👩‍💼 selected address:', address);
   //     console.log('🕵🏻‍♂️ selectedChainId:', selectedChainId);
   //     console.log('💵 yourLocalBalance', yourLocalBalance ? formatEther(yourLocalBalance) : '...');
   //     console.log('💵 yourMainnetBalance', yourMainnetBalance ? formatEther(yourMainnetBalance) : '...');
   //     console.log('📝 readContracts', readContracts);
-  //     console.log('🌍 DAI contract on mainnet:', mainnetDAIContract);
+  // console.log('🌍 DAI contract on mainnet:', mainnetDAIContract);
   //     console.log('🔐 writeContracts', writeContracts);
   //   }
   // }, [
@@ -363,6 +364,7 @@ function App(props) {
                 provider={userProvider}
                 readContracts={readContracts}
                 writeContracts={writeContracts}
+                mainnetMatic={mainnetMatic}
               />
             </div>
             {/* <Contract
