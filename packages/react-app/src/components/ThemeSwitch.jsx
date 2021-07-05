@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { themeChange } from 'theme-change';
 
 export default function ThemeSwitcher() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const theme = localStorage.getItem('theme');
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function ThemeSwitcher() {
         {!isDarkMode ? '☀️' : '🌜'}
         <input type="checkbox" checked={isDarkMode} className="toggle" />
         <span
-          data-toggle-theme="bumblebee,dracula"
+          data-toggle-theme="dracula,bumblebee"
           data-act-class="active"
           className="toggle-mark"
           onClick={toggleTheme}
